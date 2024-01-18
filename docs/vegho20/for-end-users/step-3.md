@@ -1,5 +1,5 @@
 ---
 title: Lock
 ---
-
-# Lock
+# Step 3
+### Lock
