@@ -235,7 +235,7 @@ watch([selectedDate, computedLockTime], () => {
       class="submit-button"
       :disabled="!isFormValid || isLoading"
     >
-      {{ isLoading ? 'Deploying...' : 'Deploy veSystem' }}
+      {{ isLoading ? 'Deploying...' : 'Deploy veGHO20' }}
     </button>
   </form>
 </template>

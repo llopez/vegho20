@@ -465,7 +465,7 @@ const formFields = computed(() => {
             :disabled="isLoadingLock"
             @click="handleLockModalOpen"
           >
-            {{ isLoadingLock ? 'Locking...' : 'Lock' }}
+            {{ isLoadingLock ? 'Locking...' : 'Lock veGHO20' }}
           </button>
           <button
             v-if="lockAmount > ethers.toBigInt(0)"
@@ -500,7 +500,7 @@ const formFields = computed(() => {
             :disabled="isLoadingWithdraw || lockAmount === ethers.toBigInt(0)"
             @click="handleWithdrawModalOpen"
           >
-            {{ isLoadingWithdraw ? 'Withdrawing...' : 'Withdraw' }}
+            {{ isLoadingWithdraw ? 'Withdrawing...' : 'Withdraw veGHO20' }}
           </button>
           <button
             v-if="lockEndTime > currentTimeInSeconds"
@@ -523,7 +523,7 @@ const formFields = computed(() => {
             :disabled="isLoadingClaim"
             @click="handleClaimModalOpen"
           >
-            {{ isLoadingClaim ? 'Claiming...' : 'Claim' }}
+            {{ isLoadingClaim ? 'Claiming...' : 'Claim Rewards' }}
           </button>
         </div>
       </article>
