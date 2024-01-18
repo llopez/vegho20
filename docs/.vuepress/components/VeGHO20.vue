@@ -3,7 +3,7 @@ import { createProviderComponent } from '../providers/createProviderComponent';
 import { provideNetwork } from '../providers/network';
 import { provideVeSystem } from '../providers/veSystem';
 import { provideTabs, Tab } from '../providers/tabs';
-import TabsComponent from './ve8020/admin/TabsComponent.vue';
+import TabsComponent from './vegho20/admin/TabsComponent.vue';
 
 const NetworkProvider = createProviderComponent(() => provideNetwork());
 const VeSystemProvider = createProviderComponent(() => provideVeSystem());
