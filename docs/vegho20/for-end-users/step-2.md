@@ -1,5 +1,7 @@
 ---
-title: Add Liquidity
+title: Lock Token, Claim Rewards and Withdraw
 ---
 # Step 2
-### Add Liquidity
+### Lock Token, Claim Rewards and Withdraw
+
+<VeGHO20User />

@@ -21,9 +21,9 @@ import RightAnchor from '@theme/RightAnchor.vue';
 
         <PageNav />
       </div>
-      <div class="rightbar col">
+      <!-- <div class="rightbar col">
         <RightAnchor />
-      </div>
+      </div> -->
     </div>
 
     <slot name="bottom" />

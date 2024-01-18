@@ -42,7 +42,7 @@ const NavbarBrandLogo: FunctionalComponent = () => {
 
 <template>
   <RouterLink :to="navbarBrandLink">
-    <NavbarBrandLogo />
+    <!-- <NavbarBrandLogo /> -->
 
     <span
       v-if="navbarBrandTitle"
