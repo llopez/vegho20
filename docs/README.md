@@ -1,8 +1,8 @@
 ---
 home: true
 title: Home
-heroText: Balancer Docs
-heroImage: /images/backgrounds/main.svg
+heroText: VeGHO20
+# heroImage: /images/backgrounds/main.svg
 homeImage: /images/hero-circles.png
 features:
   - title: Basics
@@ -29,22 +29,4 @@ features:
     icon: /images/quick-link-lbp.svg
     details: For fair token launches and NFT drops
     link: /concepts/pools/liquidity-bootstrapping.html
-footer:
----
-
-## More Resources
-
-**Github Repos**
-
-- [Smart Contracts](https://github.com/balancer/balancer-v2-monorepo)
-- [Deployments](https://github.com/balancer/balancer-deployments)
-- [SDK](https://github.com/balancer/balancer-sdk)
-- [Smart Order Router](https://github.com/balancer/balancer-sor)
-- [Frontend](https://github.com/balancer/frontend-v2)
-- [Subgraph](https://github.com/balancer/balancer-subgraph-v2)
-
-**Analytics & Dashboards**
-
-- [DefiLlama](https://defillama.com/protocol/balancer)
-- [Analytics](https://balancer.defilytica.com/)
-- [Dune veBAL](https://dune.com/balancerlabs/veBAL)
+--- 

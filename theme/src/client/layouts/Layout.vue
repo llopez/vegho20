@@ -106,10 +106,7 @@ const onBeforeLeave = scrollPromise.pending;
       </slot>
 
       <slot name="page">
-        <Home v-if="frontmatter.home" />
-
         <Transition
-          v-else
           name="fade-slide-y"
           mode="out-in"
           @before-enter="onBeforeEnter"

@@ -75,7 +75,7 @@ function getCssValue(el: HTMLElement | null, property: string): number {
       <slot name="after" />
     </div>
     <div class="navbar-items-right" :style="linksWrapperStyle">
-      <SearchBar v-if="!frontmatter.home" />
+      <!-- <SearchBar v-if="!frontmatter.home" /> -->
       <div class="dark-mode-container">
         <ToggleColorModeButton v-if="themeLocale.colorModeSwitch" />
       </div>

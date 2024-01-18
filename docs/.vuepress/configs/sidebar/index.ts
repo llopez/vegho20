@@ -105,10 +105,5 @@ const side = (baseDir, relativeDir = '', currentLevel = 1) => {
 
 // export const sidebar = getConfig('./', {});
 export const sidebar: SidebarConfig = {
-  '/concepts': side('docs/concepts/', ''),
-  '/guides': side('docs/guides/', ''),
-  '/reference': side('docs/reference/', ''),
-  '/tools': side('docs/tools/', ''),
-  '/sdk': side('docs/sdk/', ''),
-  '/': side('docs/concepts/', ''),
+  '/vegho20': side('docs/vegho20/', ''),
 };
