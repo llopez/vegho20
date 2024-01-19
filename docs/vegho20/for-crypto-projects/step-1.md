@@ -1,5 +1,7 @@
 ---
-title: Pick or deploy BPT with  at least 20% GHO
+title: "Step 1: Create BPT with at least 20% GHO"
 ---
-# Step 1
-### Pick or deploy BPT with  at least 20% GHO
+
+### Step 1: Create BPT with at least 20% GHO
+
+![](/images/Create-BalancerPoolWithGHO.png)
