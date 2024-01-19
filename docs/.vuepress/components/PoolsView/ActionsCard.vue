@@ -1,8 +1,5 @@
 <script setup>
-import { ref } from 'vue';
-import SwapForm from './SwapForm.vue';
 import JoinForm from './JoinForm.vue';
-import ExitForm from './ExitForm.vue';
 
 defineProps({
   pool: {
@@ -10,35 +7,11 @@ defineProps({
     required: true,
   },
 });
-
-const activeTab = ref('swap');
 </script>
 <template>
   <div class="card">
-    <div class="tabs">
-      <button
-        :class="`tab ${activeTab === 'swap' ? 'tab--active' : null}`"
-        @click="activeTab = 'swap'"
-      >
-        Swap
-      </button>
-      <button
-        :class="`tab ${activeTab === 'join' ? 'tab--active' : null}`"
-        @click="activeTab = 'join'"
-      >
-        Join
-      </button>
-      <button
-        :class="`tab ${activeTab === 'exit' ? 'tab--active' : null}`"
-        @click="activeTab = 'exit'"
-      >
-        Exit
-      </button>
-    </div>
     <div style="padding: 16px 0">
-      <SwapForm v-if="activeTab === 'swap'" :pool="pool" />
-      <JoinForm v-if="activeTab === 'join'" :pool="pool" />
-      <ExitForm v-if="activeTab === 'exit'" :pool="pool" />
+      <JoinForm :pool="pool" />
     </div>
   </div>
 </template>

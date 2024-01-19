@@ -22,29 +22,9 @@ watch(pools, () => {
 watch(network, () => {
   pool.value = null;
 });
-
-function handleSearch(query) {
-  const result = pools.value.find(p => {
-    return p.id === query || p.address === query;
-  });
-
-  if (!result) {
-    return;
-  }
-
-  pool.value = result;
-}
 </script>
 <template>
   <div class="pools-view">
-    <div class="search-row">
-      <div style="flex: 1">
-        <Search :onSearch="handleSearch" />
-      </div>
-      <div>
-        <NetworkSelect />
-      </div>
-    </div>
     <template v-if="pool && !isLoading">
       <div class="pool-header">
         <p class="pool-name">{{ pool.name }}</p>

@@ -110,7 +110,7 @@ async function onSubmit() {
     </div>
     <div>
       <button class="submit-button" @click="onSubmit">
-        <span v-if="!loading">Query Join</span>
+        <span v-if="!loading">Join</span>
         <Spinner v-else />
       </button>
     </div>
