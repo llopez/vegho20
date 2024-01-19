@@ -4,6 +4,14 @@ import Calendar from './Calendar.vue';
 import { useWeb3ModalProvider } from '@web3modal/ethers/vue';
 import { useNetwork } from '../../providers/network';
 import { dateToSeconds, useController, weeksToSeconds } from '../../utils';
+import { Select, SelectTrigger, SelectOptions } from '../Select';
+import { usePools } from '../../providers/pools';
+import Spinner from '../Spinner.vue';
+const { pools, isLoading: isLoadingPools } = usePools();
+
+watch(pools, value => {
+  filteredPools.value = value;
+});
 
 const { network } = useNetwork();
 const { walletProvider } = useWeb3ModalProvider();
@@ -128,11 +136,60 @@ watch([selectedDate, computedLockTime], () => {
   lockTime.value = computedLockTime.value;
   validateForm();
 });
+
+const filteredPools = ref();
+
+const selectedPool = ref({});
+
+const searchTokens = text => {
+  filteredPools.value = pools.value.filter(
+    x =>
+      x.symbol.toLowerCase().includes(text.toLowerCase()) ||
+      x.address.toLowerCase() === text.toLowerCase()
+  );
+};
+const onTokenInChange = value => {
+  console.log(value);
+  selectedPool.value = value;
+  bptAddress.value = value.address;
+};
 </script>
 
 <template>
   <form class="section-container" @submit.prevent="handleSubmit">
-    <div key="bptAddress" class="item-row">
+    <div key="bla" class="item-row">
+      <p class="item-name">Select 8020 BPT address</p>
+      <div class="select">
+        <Select :onChange="onTokenInChange" :value="selectedPool">
+          <SelectTrigger
+            :value="selectedPool.address"
+            placeholder="Select Pool"
+          >
+            <Avatar
+              :address="selectedPool.address"
+              :imageURL="selectedPool.logoURI"
+              :size="20"
+            />
+            <span>{{ selectedPool.symbol }}</span>
+          </SelectTrigger>
+          <SelectOptions
+            v-slot="pool"
+            :options="filteredPools"
+            optionKey="address"
+            :searchFn="searchTokens"
+          >
+            <Avatar
+              :address="pool.address"
+              :imageURL="pool.logoURI"
+              :size="20"
+            />
+            <span>{{ pool.symbol }}</span>
+          </SelectOptions>
+        </Select>
+      </div>
+    </div>
+
+    <!-- <div key="bptAddress" class="item-row">
       <p class="item-name">8020 BPT address</p>
       <div class="input-group">
         <input
@@ -143,7 +200,7 @@ watch([selectedDate, computedLockTime], () => {
           class="input"
         />
       </div>
-    </div>
+    </div> -->
     <div key="veTokenName" class="item-row">
       <p class="item-name">veToken Name</p>
       <div class="input-group">
@@ -378,5 +435,13 @@ input[type='number'] {
 .submit-button:disabled {
   background-color: rgba(56, 74, 255, 0.2);
   cursor: not-allowed;
+}
+
+.select {
+  flex: 1;
+}
+
+.select ul {
+  width: 100%;
 }
 </style>
