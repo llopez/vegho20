@@ -1,10 +1,13 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { ethers } from 'ethers';
+import { ethers, BrowserProvider } from 'ethers';
 import { BalancerSDK, BalancerErrors } from '@balancer-labs/sdk';
 import { BalancerQueriesAbi } from '../../abis/BalancerQueries';
 import { useNetwork } from '../../providers/network';
 import { useTokens } from '../../providers/tokens';
+import { useWeb3ModalProvider } from '@web3modal/ethers/vue';
+
+const { walletProvider } = useWeb3ModalProvider();
 
 const props = defineProps({
   pool: {
@@ -30,60 +33,71 @@ async function onSubmit() {
   errorMessage.value = null;
   loading.value = true;
 
-  try {
-    const balancer = new BalancerSDK({
-      network: network.value.id,
-      rpcUrl: network.value.rpcUrl,
-    });
-    const pool = await balancer.pools.find(props.pool.id);
-
-    const { attributes } = pool.buildJoin(
-      ethers.ZeroAddress,
-      props.pool.tokens.map(token => token.address),
-      props.pool.tokens.map(token => {
-        if (amounts.value[token.address]) {
-          return ethers.parseUnits(
-            amounts.value[token.address],
-            token.decimals
-          );
-        }
-        return 0n;
-      }),
-      '50'
-    );
-
-    const queries = new ethers.Contract(
-      '0xE39B5e3B6D74016b2F6A9673D7d7493B6DF549d5',
-      BalancerQueriesAbi,
-      new ethers.JsonRpcProvider(network.value.rpcUrl)
-    );
-
-    const response = await queries
-      .getFunction('queryJoin')
-      .staticCall(
-        attributes.poolId,
-        attributes.sender,
-        attributes.recipient,
-        attributes.joinPoolRequest
-      );
-
-    bptOut.value = ethers.formatUnits(response[0], 18);
-  } catch (e) {
-    bptOut.value = '';
-    if (ethers.isCallException(e)) {
-      if (BalancerErrors.isErrorCode(e.reason)) {
-        errorMessage.value = `${e.reason} - ${BalancerErrors.parseErrorCode(
-          e.reason
-        )}`;
-      } else {
-        errorMessage.value = e.reason;
-      }
-    } else {
-      errorMessage.value = e.message;
-    }
-  } finally {
+  setTimeout(() => {
     loading.value = false;
-  }
+    amounts.value = {};
+  }, 4000);
+
+  // try {
+  //   const balancer = new BalancerSDK({
+  //     network: network.value.id,
+  //     rpcUrl: network.value.rpcUrl,
+  //   });
+  //   const pool = await balancer.pools.find(props.pool.id);
+
+  //   const { attributes } = pool.buildJoin(
+  //     ethers.ZeroAddress,
+  //     props.pool.tokens.map(token => token.address),
+  //     props.pool.tokens.map(token => {
+  //       if (amounts.value[token.address]) {
+  //         return ethers.parseUnits(
+  //           amounts.value[token.address],
+  //           token.decimals
+  //         );
+  //       }
+  //       return 0n;
+  //     }),
+  //     '50'
+  //   );
+
+  //   const provider = new BrowserProvider(
+  //     walletProvider.value,
+  //     network.value.id
+  //   );
+  //   const signer = await provider.getSigner();
+
+  //   const queries = new ethers.Contract(
+  //     '0xE39B5e3B6D74016b2F6A9673D7d7493B6DF549d5',
+  //     BalancerQueriesAbi,
+  //     signer
+  //   );
+
+  //   const response = await queries
+  //     .getFunction('queryJoin')
+  //     .staticCall(
+  //       attributes.poolId,
+  //       attributes.sender,
+  //       attributes.recipient,
+  //       attributes.joinPoolRequest
+  //     );
+
+  //   bptOut.value = ethers.formatUnits(response[0], 18);
+  // } catch (e) {
+  //   bptOut.value = '';
+  //   if (ethers.isCallException(e)) {
+  //     if (BalancerErrors.isErrorCode(e.reason)) {
+  //       errorMessage.value = `${e.reason} - ${BalancerErrors.parseErrorCode(
+  //         e.reason
+  //       )}`;
+  //     } else {
+  //       errorMessage.value = e.reason;
+  //     }
+  //   } else {
+  //     errorMessage.value = e.message;
+  //   }
+  // } finally {
+  //   loading.value = false;
+  // }
 }
 </script>
 <template>
