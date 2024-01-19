@@ -3,19 +3,19 @@ import { ref, watch } from 'vue';
 import { usePools } from '../../providers/pools';
 import PoolDetails from './PoolDetails.vue';
 import ActionsCard from './ActionsCard.vue';
-import Search from './Search.vue';
 import TokenList from './TokenList.vue';
-import NetworkSelect from '../Navbar/NetworkSelect.vue';
 import { useNetwork } from '../../providers/network';
 
 const { network } = useNetwork();
 const { pools, isLoading } = usePools();
 
-const pool = ref(pools.value.length > 0 ? pools.value[0] : null);
+const pool = ref();
 
 watch(pools, () => {
   if (pools.value.length > 0) {
-    pool.value = pools.value[0];
+    pool.value = pools.value.find(
+      x => x.address === '0x7d98f308db99fdd04bbf4217a4be8809f38faa64'
+    );
   }
 });
 
@@ -41,6 +41,7 @@ watch(network, () => {
         </div>
       </div>
     </template>
+    <Spinner v-else />
   </div>
 </template>
 <style scoped>
