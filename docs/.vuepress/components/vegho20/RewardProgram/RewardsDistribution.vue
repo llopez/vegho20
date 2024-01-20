@@ -118,17 +118,6 @@ watch(pools, value => {
     <AddRewardsNWeeks />
     <AddRewardsExactWeek />
   </div>
-  <div class="btn-group">
-    <button class="available-button" @click="handleOpenAvailableRewardsModal">
-      Available Rewards
-    </button>
-  </div>
-  <AvailableRewardsModal
-    :open="isModalOpen"
-    :onClose="handleCloseAvailableRewardsModal"
-    :rewards="availableRewards"
-  >
-  </AvailableRewardsModal>
 </template>
 
 <style scoped>
