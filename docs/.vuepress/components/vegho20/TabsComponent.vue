@@ -1,12 +1,6 @@
 <script setup lang="ts">
-import Overview from './Overview.vue';
 import Configuration from './Configuration.vue';
 import Wallet from '../Navbar/Wallet.vue';
-import { useTabs, Tab } from '../../providers/tabs';
-import { useVeSystem } from '../../providers/veSystem';
-
-const { tab, select } = useTabs();
-const { selected: veSystem } = useVeSystem();
 </script>
 
 <template>
@@ -14,30 +8,7 @@ const { selected: veSystem } = useVeSystem();
     <Wallet />
   </div>
   <div class="main-container">
-    <div class="head-container">
-      <div
-        :class="{ tab: true, 'active-tab': tab === Tab.OVERVIEW }"
-        @click="select(Tab.OVERVIEW)"
-      >
-        veSystem Overview
-      </div>
-      <div
-        :class="{
-          tab: true,
-          'active-tab': tab === Tab.POOL_DETAILS,
-          disabled: !veSystem,
-        }"
-        @click="veSystem && select(Tab.POOL_DETAILS)"
-      >
-        Pool Details
-      </div>
-    </div>
-
-    <div v-show="tab === Tab.OVERVIEW" class="body-container">
-      <Overview />
-    </div>
-
-    <div v-show="tab === Tab.POOL_DETAILS" class="body-container">
+    <div class="body-container">
       <Configuration />
     </div>
   </div>

@@ -2,20 +2,22 @@
 import { createProviderComponent } from '../providers/createProviderComponent';
 import { provideNetwork } from '../providers/network';
 import { provideVeSystem } from '../providers/veSystem';
-import { provideTabs, Tab } from '../providers/tabs';
 import TabsComponent from './vegho20/TabsComponent.vue';
+import { providePools } from '../providers/pools';
 
 const NetworkProvider = createProviderComponent(() => provideNetwork());
 const VeSystemProvider = createProviderComponent(() => provideVeSystem());
-const TabsProvider = createProviderComponent(() => provideTabs(Tab.OVERVIEW));
+const GlobalProvider = createProviderComponent(() => {
+  providePools();
+});
 </script>
 
 <template>
   <NetworkProvider>
-    <VeSystemProvider>
-      <TabsProvider>
+    <GlobalProvider>
+      <VeSystemProvider>
         <TabsComponent />
-      </TabsProvider>
-    </VeSystemProvider>
+      </VeSystemProvider>
+    </GlobalProvider>
   </NetworkProvider>
 </template>

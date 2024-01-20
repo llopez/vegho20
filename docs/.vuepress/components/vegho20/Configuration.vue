@@ -13,10 +13,21 @@ import IncreaseLockModal from './IncreaseLockModal.vue';
 import ClaimModal from './ClaimModal.vue';
 import WithdrawModal from './WithdrawModal.vue';
 import { ethers } from 'ethers';
+import { Select, SelectTrigger, SelectOptions } from '../Select';
+import { usePools } from '../../providers/pools';
+const { pools, isLoading: isLoadingPools } = usePools();
+
+watch(pools, value => {
+  filteredPools.value = value;
+});
 
 const { walletProvider } = useWeb3ModalProvider();
 const { network } = useNetwork();
-const { selected: veSystem } = useVeSystem();
+const {
+  selected: veSystem,
+  select: selectVeSystem,
+  data: veSystems,
+} = useVeSystem();
 const {
   createLock,
   withdraw,
@@ -423,11 +434,78 @@ const formFields = computed(() => {
     },
   ];
 });
+
+const filteredPools = ref();
+
+const selectedPool = ref({});
+
+const searchTokens = text => {
+  filteredPools.value = pools.value.filter(
+    x =>
+      x.symbol.toLowerCase().includes(text.toLowerCase()) ||
+      x.address.toLowerCase() === text.toLowerCase()
+  );
+};
+const onTokenInChange = value => {
+  console.log(value);
+  selectedPool.value = value;
+  // bptAddress.value = value.address;
+  const _veSystem = veSystems.value.find(x => x.bptToken === value);
+
+  if (!_veSystem) return;
+
+  selectVeSystem(_veSystem.id);
+};
 </script>
 
 <template>
   <main class="section-container">
     <section class="section-body">
+      <div key="pool-selector" class="item-row">
+        <p class="item-name">Select 8020 BPT address</p>
+        <div class="input-group custom-group">
+          <Select :onChange="onTokenInChange" :value="selectedPool">
+            <SelectTrigger
+              :value="selectedPool.address"
+              placeholder="Select Pool"
+            >
+              <Avatar
+                :address="selectedPool.address"
+                :imageURL="selectedPool.logoURI"
+                :size="20"
+              />
+              <span>{{ selectedPool.symbol }}</span>
+            </SelectTrigger>
+            <SelectOptions
+              v-slot="pool"
+              :options="filteredPools"
+              optionKey="address"
+              :searchFn="searchTokens"
+            >
+              <Avatar
+                :address="pool.address"
+                :imageURL="pool.logoURI"
+                :size="20"
+              />
+              <span>{{ pool.symbol }}</span>
+            </SelectOptions>
+          </Select>
+        </div>
+      </div>
+      <div key="selected-ve-system" class="item-row">
+        <p class="item-name">veSystem</p>
+        <div class="input-group">
+          <span v-if="veSystem">{{ veSystem.id }}</span>
+          <span
+            v-if="Object.keys(selectedPool).length > 0 && !veSystem"
+            class="warning"
+            >This Balancer Pool does not yet have a veGHO20 Voting Escrow System
+            deployed yet. Please go to
+            <a href="/vegho20/for-crypto-projects/step-2.html">Step 2</a> to
+            deploy it.</span
+          >
+        </div>
+      </div>
       <div v-for="field in formFields" :key="field.label" class="item-row">
         <p class="item-name">{{ field.label }}</p>
         <div class="input-group">
@@ -607,5 +685,25 @@ const formFields = computed(() => {
   cursor: not-allowed;
   background-color: rgba(56, 74, 255, 0.2);
   color: grey;
+}
+
+.select-pool {
+  flex: 1;
+}
+
+.select-pool ul {
+  width: 100%;
+}
+
+.input-group span.warning {
+  color: red;
+}
+
+.item-row .custom-group {
+  display: block;
+}
+
+.item-row .custom-group .select ul {
+  width: 100%;
 }
 </style>
