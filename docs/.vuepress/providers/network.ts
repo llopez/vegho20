@@ -3,7 +3,7 @@ import { NETWORKS, NetworkConfig } from '../constants/networks';
 import { safeInject } from './inject';
 
 export const networkProvider = () => {
-  const selectedNetwork = ref(NETWORKS[0]);
+  const selectedNetwork = ref();
 
   function selectNetwork(network: NetworkConfig) {
     selectedNetwork.value = network;

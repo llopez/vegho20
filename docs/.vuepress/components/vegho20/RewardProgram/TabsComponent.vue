@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import RewardsDistribution from './RewardsDistribution.vue';
-import AdminPools from './AdminPools.vue';
 import Wallet from '../../Navbar/Wallet.vue';
-import { useTabs, Tab } from '../../../providers/tabs';
-import { useVeSystem } from '../../../providers/veSystem';
-
-const { tab, select } = useTabs();
-const { selected: veSystem } = useVeSystem();
 </script>
 
 <template>
@@ -14,30 +8,7 @@ const { selected: veSystem } = useVeSystem();
     <Wallet />
   </div>
   <div class="main-container">
-    <div class="head-container">
-      <div
-        :class="{ tab: true, 'active-tab': tab === Tab.ADMIN_POOLS }"
-        @click="select(Tab.ADMIN_POOLS)"
-      >
-        Admin Pools
-      </div>
-      <div
-        :class="{
-          tab: true,
-          'active-tab': tab === Tab.REWARDS_DISTRIBUTION && veSystem,
-          disabled: !veSystem,
-        }"
-        @click="veSystem && select(Tab.REWARDS_DISTRIBUTION)"
-      >
-        Rewards Distribution
-      </div>
-    </div>
-
-    <div v-show="tab === Tab.ADMIN_POOLS" class="body-container">
-      <AdminPools />
-    </div>
-
-    <div v-show="tab === Tab.REWARDS_DISTRIBUTION" class="body-container">
+    <div class="body-container">
       <RewardsDistribution />
     </div>
   </div>

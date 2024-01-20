@@ -14,8 +14,9 @@ export const poolsProvider = () => {
   });
 
   async function initPools() {
+    if (!network.value) return;
     isLoading.value = true;
-
+    console.log('init pools for network', network.value.id);
     const poolProvider = new SubgraphPoolProvider(network.value.id, undefined, {
       gqlAdditionalPoolQueryFields: 'name symbol totalLiquidity',
     });
