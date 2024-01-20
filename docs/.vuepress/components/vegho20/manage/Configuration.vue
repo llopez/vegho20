@@ -10,10 +10,17 @@ import { useWeb3ModalProvider } from '@web3modal/ethers/vue';
 import { useNetwork } from '../../../providers/network';
 import { useController } from '../../../utils/VotingEscrowController';
 import { ethers } from 'ethers';
+import { Select, SelectTrigger, SelectOptions } from '../../Select';
+import { usePools } from '../../../providers/pools';
 
+const { pools, isLoading: isLoadingPools } = usePools();
 const { walletProvider } = useWeb3ModalProvider();
 const { network } = useNetwork();
-const { selected: veSystem } = useVeSystem();
+const {
+  selected: veSystem,
+  data: veSystems,
+  select: selectVeSystem,
+} = useVeSystem();
 const {
   allUnlock,
   setAllUnlock,
@@ -167,25 +174,21 @@ const formFields = computed(() => {
   return [
     {
       label: 'Underlying 8020 BPT address',
-      placeholder: 'B-GNO80-WETH20',
       name: 'bptAddress',
       value: veSystem.value?.bptToken,
     },
     {
       label: 'veToken Name',
-      placeholder: 'Voting Escrow Balancer 80 GNO',
       name: 'veTokenName',
       value: veSystem.value?.votingEscrow.name,
     },
     {
       label: 'veToken Symbol',
-      placeholder: 'veGNO80-WETH20',
       name: 'veTokenSymbol',
       value: veSystem.value?.votingEscrow.symbol,
     },
     {
       label: 'veGHO20 Factory',
-      placeholder: '0x67c3...9a65c',
       name: 'factoryUsed',
       value: network.value
         ? CONFIG.get(network.value.id)?.LAUNCHPAD_CONTRACT
@@ -193,7 +196,6 @@ const formFields = computed(() => {
     },
     {
       label: 'Rewards Distribution Address',
-      placeholder: '0x67c3...9a65c',
       name: 'rewardsAddress',
       value: veSystem.value?.rewardDistributorAddress,
     },
@@ -205,23 +207,92 @@ const formFields = computed(() => {
     },
     {
       label: '% of BPT supply locked',
-      placeholder: '37%',
       name: 'supplyVested',
       value: supplyVested.toString().concat('%'),
     },
     {
       label: 'Rewards Distribution Admin',
-      placeholder: '0xb76f3...987b5',
       name: 'rewardsDistribution',
       value: veSystem.value?.admin,
     },
   ];
 });
+
+watch(pools, value => {
+  filteredPools.value = value;
+});
+
+const filteredPools = ref();
+
+const selectedPool = ref({});
+
+const searchTokens = text => {
+  filteredPools.value = pools.value.filter(
+    x =>
+      x.symbol.toLowerCase().includes(text.toLowerCase()) ||
+      x.address.toLowerCase() === text.toLowerCase()
+  );
+};
+const onTokenInChange = value => {
+  console.log(value);
+  selectedPool.value = value;
+  // bptAddress.value = value.address;
+  const _veSystem = veSystems.value.find(x => x.bptToken === value);
+
+  if (!_veSystem) return;
+
+  selectVeSystem(_veSystem.id);
+};
 </script>
 
 <template>
   <main class="section-container">
     <section class="section-body">
+      <div key="pool-selector" class="item-row">
+        <p class="item-name">Select 8020 BPT address</p>
+        <div class="input-group custom-group">
+          <Select :onChange="onTokenInChange" :value="selectedPool">
+            <SelectTrigger
+              :value="selectedPool.address"
+              placeholder="Select Pool"
+            >
+              <Avatar
+                :address="selectedPool.address"
+                :imageURL="selectedPool.logoURI"
+                :size="20"
+              />
+              <span>{{ selectedPool.symbol }}</span>
+            </SelectTrigger>
+            <SelectOptions
+              v-slot="pool"
+              :options="filteredPools"
+              optionKey="address"
+              :searchFn="searchTokens"
+            >
+              <Avatar
+                :address="pool.address"
+                :imageURL="pool.logoURI"
+                :size="20"
+              />
+              <span>{{ pool.symbol }}</span>
+            </SelectOptions>
+          </Select>
+        </div>
+      </div>
+      <div key="selected-ve-system" class="item-row">
+        <p class="item-name">veSystem</p>
+        <div class="input-group">
+          <span v-if="veSystem">{{ veSystem.id }}</span>
+          <span
+            v-if="Object.keys(selectedPool).length > 0 && !veSystem"
+            class="warning"
+            >This Balancer Pool does not yet have a veGHO20 Voting Escrow System
+            deployed yet. Please go to
+            <a href="/vegho20/for-crypto-projects/step-2.html">Step 2</a> to
+            deploy it.</span
+          >
+        </div>
+      </div>
       <div v-for="field in formFields" :key="field.label" class="item-row">
         <p class="item-name">{{ field.label }}</p>
         <div class="input-group">
@@ -363,5 +434,25 @@ const formFields = computed(() => {
   cursor: not-allowed;
   background-color: rgba(56, 74, 255, 0.2);
   color: grey;
+}
+
+.select-pool {
+  flex: 1;
+}
+
+.select-pool ul {
+  width: 100%;
+}
+
+.input-group span.warning {
+  color: red;
+}
+
+.item-row .custom-group {
+  display: block;
+}
+
+.item-row .custom-group .select ul {
+  width: 100%;
 }
 </style>

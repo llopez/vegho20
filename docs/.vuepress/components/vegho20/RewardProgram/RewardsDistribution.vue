@@ -103,7 +103,9 @@ watch(pools, value => {
       <p class="item-name">veSystem</p>
       <div class="select-pool">
         <span v-if="veSystem">{{ veSystem.id }}</span>
-        <span v-if="Object.keys(selectedPool).length > 0 && !veSystem"
+        <span
+          v-if="Object.keys(selectedPool).length > 0 && !veSystem"
+          class="warning"
           >This Balancer Pool does not yet have a veGHO20 Voting Escrow System
           deployed yet. Please go to
           <a href="/vegho20/for-crypto-projects/step-2.html">Step 2</a> to
@@ -191,5 +193,9 @@ watch(pools, value => {
 
 .select-pool ul {
   width: 100%;
+}
+
+.select-pool span.warning {
+  color: red;
 }
 </style>

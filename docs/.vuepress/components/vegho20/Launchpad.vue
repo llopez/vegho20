@@ -6,7 +6,6 @@ import { useNetwork } from '../../providers/network';
 import { dateToSeconds, useController, weeksToSeconds } from '../../utils';
 import { Select, SelectTrigger, SelectOptions } from '../Select';
 import { usePools } from '../../providers/pools';
-import Spinner from '../Spinner.vue';
 const { pools, isLoading: isLoadingPools } = usePools();
 
 watch(pools, value => {
