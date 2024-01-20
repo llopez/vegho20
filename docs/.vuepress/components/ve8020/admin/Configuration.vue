@@ -187,7 +187,9 @@ const formFields = computed(() => {
       label: 'Launchpad Address',
       placeholder: '0x67c3...9a65c',
       name: 'factoryUsed',
-      value: CONFIG.get(network.value.id)?.LAUNCHPAD_CONTRACT,
+      value: network.value
+        ? CONFIG.get(network.value.id)?.LAUNCHPAD_CONTRACT
+        : '',
     },
     {
       label: 'Rewards Distribution Address',
