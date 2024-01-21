@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useWeb3ModalProvider } from '@web3modal/ethers/vue';
 import { useNetwork } from '../../../providers/network';
 import { BrowserProvider } from 'ethers';
 import SuccessModal from './SuccessModal.vue';
+import { Select, SelectTrigger, SelectOptions } from '../../Select';
+import { usePools } from '../../../providers/pools';
 
+const { pools, isLoading: isLoadingPools } = usePools();
 const { network } = useNetwork();
 const { walletProvider } = useWeb3ModalProvider();
 
@@ -56,9 +59,60 @@ const sign = async () => {
 const handleClose = () => {
   isModalOpen.value = false;
 };
+
+watch(pools, value => {
+  filteredPools.value = value;
+});
+const filteredPools = ref();
+
+const selectedPool = ref({});
+
+const searchTokens = text => {
+  filteredPools.value = pools.value.filter(
+    x =>
+      x.symbol.toLowerCase().includes(text.toLowerCase()) ||
+      x.address.toLowerCase() === text.toLowerCase()
+  );
+};
+const onTokenInChange = value => {
+  console.log(value);
+  selectedPool.value = value;
+};
 </script>
 <template>
   <form class="section-container" @submit.prevent="sign">
+    <div key="bptToken" class="item-row">
+      <p class="item-name">Select ve8020GHO BPT address</p>
+      <div class="select">
+        <Select :onChange="onTokenInChange" :value="selectedPool">
+          <SelectTrigger
+            :value="selectedPool.address"
+            placeholder="Select Pool"
+          >
+            <Avatar
+              :address="selectedPool.address"
+              :imageURL="selectedPool.logoURI"
+              :size="20"
+            />
+            <span>{{ selectedPool.symbol }}</span>
+          </SelectTrigger>
+          <SelectOptions
+            v-slot="pool"
+            :options="filteredPools"
+            optionKey="address"
+            :searchFn="searchTokens"
+          >
+            <Avatar
+              :address="pool.address"
+              :imageURL="pool.logoURI"
+              :size="20"
+            />
+            <span>{{ pool.symbol }}</span>
+          </SelectOptions>
+        </Select>
+      </div>
+    </div>
+
     <div key="projectName" class="item-row area-row">
       <p class="item-name">Summary</p>
       <div class="input-group">
@@ -343,5 +397,13 @@ input[type='number'] {
   height: 200px !important;
   padding: 5px !important;
   width: 367px !important;
+}
+
+.select {
+  flex: 1;
+}
+
+.select ul {
+  width: 100%;
 }
 </style>
