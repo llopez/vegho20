@@ -1,7 +1,7 @@
 ---
 home: true
 title: Home
-heroText: VeGHO20
+heroText: ve8020GHO
 # heroImage: /images/backgrounds/main.svg
 homeImage: /images/hero-circles.png
 features:

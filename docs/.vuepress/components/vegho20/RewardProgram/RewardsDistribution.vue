@@ -69,7 +69,7 @@ watch(pools, value => {
 <template>
   <div class="section-container">
     <div key="bla" class="item-row-selector">
-      <p class="item-name">Select 8020 BPT address</p>
+      <p class="item-name">Select ve8020GHO BPT address</p>
       <div class="select-pool">
         <Select :onChange="onTokenInChange" :value="selectedPool">
           <SelectTrigger

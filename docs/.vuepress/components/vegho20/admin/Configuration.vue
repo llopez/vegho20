@@ -166,8 +166,8 @@ const formFields = computed(() => {
 
   return [
     {
-      label: 'Underlying 8020 BPT address',
-      placeholder: 'B-GNO80-WETH20',
+      label: 'Underlying ve8020GHO BPT address',
+      placeholder: 'LINK80-GHO20',
       name: 'bptAddress',
       value: veSystem.value?.bptToken,
     },
@@ -179,7 +179,7 @@ const formFields = computed(() => {
     },
     {
       label: 'veToken Symbol',
-      placeholder: 'veGNO80-WETH20',
+      placeholder: 'veLINK80-GHO20',
       name: 'veTokenSymbol',
       value: veSystem.value?.votingEscrow.symbol,
     },

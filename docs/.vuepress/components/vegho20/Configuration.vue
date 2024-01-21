@@ -388,8 +388,8 @@ const formFields = computed(() => {
 
   return [
     {
-      label: 'Underlying 8020 BPT address',
-      placeholder: 'B-GNO80-WETH20',
+      label: 'Underlying ve8020GHO BPT address',
+      placeholder: 'LINK80-GHO20',
       name: 'bptAddress',
       value: veSystem.value?.bptToken,
     },
@@ -401,7 +401,7 @@ const formFields = computed(() => {
     },
     {
       label: 'veToken Symbol',
-      placeholder: 'veGNO80-WETH20',
+      placeholder: 'veLINK80-GHO20',
       name: 'veTokenSymbol',
       value: veSystem.value?.votingEscrow.symbol,
     },
@@ -463,7 +463,7 @@ const onTokenInChange = value => {
   <main class="section-container">
     <section class="section-body">
       <div key="pool-selector" class="item-row">
-        <p class="item-name">Select 8020 BPT address</p>
+        <p class="item-name">Select ve8020GHO BPT address</p>
         <div class="input-group custom-group">
           <Select :onChange="onTokenInChange" :value="selectedPool">
             <SelectTrigger

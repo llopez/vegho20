@@ -21,8 +21,8 @@ export default defineUserConfig({
   locales: {
     '/': {
       lang: 'en-US',
-      title: 'veGHO20.xyz',
-      description: 'Learn, integrate, and build on a programmable AMM',
+      title: 've8020GHO.xyz',
+      description: 'Create BPT with at least 20% GHO',
     },
   },
 

@@ -175,7 +175,7 @@ const formFields = computed(() => {
 
   return [
     {
-      label: 'Underlying 8020 BPT address',
+      label: 'Underlying ve8020GHO BPT address',
       name: 'bptAddress',
       value: veSystem.value?.bptToken,
     },
@@ -251,7 +251,7 @@ const onTokenInChange = value => {
   <main class="section-container">
     <section class="section-body">
       <div key="pool-selector" class="item-row">
-        <p class="item-name">Select 8020 BPT address</p>
+        <p class="item-name">Select ve8020GHO BPT address</p>
         <div class="input-group custom-group">
           <Select :onChange="onTokenInChange" :value="selectedPool">
             <SelectTrigger

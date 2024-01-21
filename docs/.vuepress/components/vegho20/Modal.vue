@@ -17,7 +17,7 @@ export default {
   <div v-if="type === 'lock'" class="modal-container">
     <div class="modal-popup lock">
       <article class="item-row">
-        <p class="item-name">Underlying 8020 BPT Amount</p>
+        <p class="item-name">Underlying ve8020GHO BPT Amount</p>
         <p class="item-value">12000</p>
       </article>
       <article class="item-row">

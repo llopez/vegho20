@@ -30,7 +30,7 @@ const { tab, select } = useTabs();
         :class="{ tab: true, 'active-tab': tab === Tab.FORM_3 }"
         @click="select(Tab.FORM_3)"
       >
-        Form 3
+        AAVE Rewards for GHO Lockers
       </div>
     </div>
 
