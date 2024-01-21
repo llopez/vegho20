@@ -4,6 +4,14 @@ import { safeInject } from './inject';
 import { useNetwork } from './network';
 import { BalancerSubgraph, PoolType } from '../utils/BalancerSubgraph';
 
+const fakePools = [
+  {
+    symbol: '80LINK-20GHO-gauge',
+    name: '80LINK-20GHO-gauge',
+    address: '0x258f24c44f0ce247957dc5ce9a94f8dfe55d2ef3',
+  },
+];
+
 const filterToken = (pools: PoolType[], symbol: string): PoolType[] =>
   pools.filter(pool => pool.tokens.map(token => token.symbol).includes(symbol));
 
@@ -27,7 +35,7 @@ export const poolsProvider = () => {
         'https://api.studio.thegraph.com/query/24660/balancer-sepolia-v2/version/latest'
       );
       const _pools = await sepoliaPoolProvider.getPools();
-      pools.value = filterToken(_pools, 'GHO');
+      pools.value = fakePools; //filterToken(_pools, 'GHO');
     } else {
       const poolProvider = new SubgraphPoolProvider(
         network.value.id,
