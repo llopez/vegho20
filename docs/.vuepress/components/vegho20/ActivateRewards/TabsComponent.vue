@@ -18,7 +18,7 @@ const { tab, select } = useTabs();
         :class="{ tab: true, 'active-tab': tab === Tab.FORM_1 }"
         @click="select(Tab.FORM_1)"
       >
-        Form 1
+        $25k BAL Rewards for ve8020GHO lockers
       </div>
       <div
         :class="{ tab: true, 'active-tab': tab === Tab.FORM_2 }"
@@ -30,7 +30,7 @@ const { tab, select } = useTabs();
         :class="{ tab: true, 'active-tab': tab === Tab.FORM_3 }"
         @click="select(Tab.FORM_3)"
       >
-        AAVE Rewards for GHO Lockers
+        AAVE Rewards for ve8020GHO Lockers (stay tuned!)
       </div>
     </div>
 
