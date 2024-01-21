@@ -8,6 +8,9 @@ export enum Tab {
   REWARDS_DISTRIBUTION,
   OVERVIEW,
   POOL_DETAILS,
+  FORM_1,
+  FORM_2,
+  FORM_3,
 }
 
 export const tabsProvider = (defaultTab: Tab) => {
