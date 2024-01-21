@@ -4,10 +4,13 @@ import { safeInject } from './inject';
 import { useNetwork } from './network';
 import { BalancerSubgraph, PoolType } from '../utils/BalancerSubgraph';
 
+const filterToken = (pools: PoolType[], symbol: string): PoolType[] =>
+  pools.filter(pool => pool.tokens.map(token => token.symbol).includes(symbol));
+
 export const poolsProvider = () => {
   const { network } = useNetwork();
 
-  const pools = ref<PoolType[] | RawPool[]>([]);
+  const pools = ref<PoolType[]>([]);
   const isLoading = ref(true);
 
   watch(network, async () => {
@@ -24,7 +27,7 @@ export const poolsProvider = () => {
         'https://api.studio.thegraph.com/query/24660/balancer-sepolia-v2/version/latest'
       );
       const _pools = await sepoliaPoolProvider.getPools();
-      pools.value = _pools;
+      pools.value = filterToken(_pools, 'GHO');
     } else {
       const poolProvider = new SubgraphPoolProvider(
         network.value.id,
@@ -38,7 +41,10 @@ export const poolsProvider = () => {
 
       const { pools: _pools } = await poolProvider.getPools({ timestamp });
 
-      pools.value = _pools;
+      // const pepe = _pools.map(x => ({ id: x.id, symbol: x.symbol }))
+      // @ts-ignore
+      pools.value = filterToken(_pools, 'GHO');
+      // pools.value = _pools;
     }
     // pools.value = _pools.sort((a, b) => {
     //   // @ts-ignore
