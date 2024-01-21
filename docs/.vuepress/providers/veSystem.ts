@@ -3,7 +3,7 @@ import { safeInject } from './inject';
 import { LaunchpadSubgraph, VeSystem } from '../utils/LaunchpadSubgraph';
 
 const SUBGRAPH_URL =
-  'https://api.thegraph.com/subgraphs/name/maxkmyt/launchpad_test_1';
+  'https://api.thegraph.com/subgraphs/name/maxkmyt/launchpad_sepolia';
 
 const graph = new LaunchpadSubgraph(SUBGRAPH_URL);
 

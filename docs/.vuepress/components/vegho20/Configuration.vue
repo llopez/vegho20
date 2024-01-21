@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, onBeforeMount } from 'vue';
 import { useVeSystem } from '../../providers/veSystem';
 import { VeSystem, secondsToDate } from '../../utils';
 import { useWeb3ModalProvider } from '@web3modal/ethers/vue';
@@ -28,6 +28,7 @@ const {
   selected: veSystem,
   select: selectVeSystem,
   data: veSystems,
+  fetch,
 } = useVeSystem();
 const {
   createLock,
@@ -41,6 +42,10 @@ const {
   walletProvider,
   network,
   veSystem,
+});
+
+onBeforeMount(() => {
+  fetch();
 });
 
 const { allowance, approve } = useTokenController({
@@ -448,11 +453,12 @@ const searchTokens = text => {
   );
 };
 const onTokenInChange = value => {
-  console.log(value);
+  console.log(value.address);
   selectedPool.value = value;
   // bptAddress.value = value.address;
-  const _veSystem = veSystems.value.find(x => x.bptToken === value);
-
+  console.log(veSystems.value)
+  const _veSystem = veSystems.value.find(x => x.bptToken === value.address);
+  console.log(_veSystem)
   if (!_veSystem) return;
 
   selectVeSystem(_veSystem.id);
