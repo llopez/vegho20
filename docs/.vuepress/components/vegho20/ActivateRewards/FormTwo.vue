@@ -59,34 +59,24 @@ const handleClose = () => {
 </script>
 <template>
   <form class="section-container" @submit.prevent="sign">
-    <div key="projectName" class="item-row">
+    <div key="projectName" class="item-row area-row">
       <p class="item-name">Summary</p>
       <div class="input-group">
-        <input
-          v-model="summary"
-          placeholder="Balancer"
-          type="text"
-          class="input"
-        />
+        <textarea v-model="summary" type="text" class="input" />
       </div>
     </div>
 
-    <div key="references" class="item-row">
+    <div key="references" class="item-row area-row">
       <p class="item-name">References</p>
       <div class="input-group">
-        <input
-          v-model="references"
-          placeholder="site1, site2, site3"
-          type="text"
-          class="input"
-        />
+        <textarea v-model="references" type="text" class="input" />
       </div>
     </div>
 
-    <div key="Protocol Description" class="item-row">
+    <div key="Protocol Description" class="item-row area-row">
       <p class="item-name">Protocol Description</p>
       <div class="input-group">
-        <input
+        <textarea
           v-model="protocolDesc"
           placeholder=""
           type="text"
@@ -95,17 +85,22 @@ const handleClose = () => {
       </div>
     </div>
 
-    <div key="motivation" class="item-row">
+    <div key="motivation" class="item-row area-row">
       <p class="item-name">Motivation</p>
       <div class="input-group">
-        <input v-model="motivation" placeholder="" type="text" class="input" />
+        <textarea
+          v-model="motivation"
+          placeholder=""
+          type="text"
+          class="input"
+        />
       </div>
     </div>
 
-    <div key="specifications" class="item-row">
+    <div key="specifications" class="item-row area-row">
       <p class="item-name">Specifications</p>
       <div class="input-group">
-        <input
+        <textarea
           v-model="specifications"
           placeholder=""
           type="text"
@@ -114,31 +109,41 @@ const handleClose = () => {
       </div>
     </div>
 
-    <div key="governance" class="item-row">
+    <div key="governance" class="item-row area-row">
       <p class="item-name">Governance</p>
       <div class="input-group">
-        <input v-model="governance" placeholder="" type="text" class="input" />
+        <textarea
+          v-model="governance"
+          placeholder=""
+          type="text"
+          class="input"
+        />
       </div>
     </div>
 
     <div key="oracles" class="item-row">
       <p class="item-name">Oracles</p>
       <div class="input-group">
-        <input v-model="oracles" placeholder="" type="text" class="input" />
+        <input
+          v-model="oracles"
+          placeholder="chainlink, etc"
+          type="text"
+          class="input"
+        />
       </div>
     </div>
 
-    <div key="audits" class="item-row">
+    <div key="audits" class="item-row area-row">
       <p class="item-name">Audits</p>
       <div class="input-group">
-        <input v-model="audits" placeholder="" type="text" class="input" />
+        <textarea v-model="audits" placeholder="" type="text" class="input" />
       </div>
     </div>
 
-    <div key="centralizationVectors" class="item-row">
+    <div key="centralizationVectors" class="item-row area-row">
       <p class="item-name">Centralization Vectors</p>
       <div class="input-group">
-        <input
+        <textarea
           v-model="centralizationVectors"
           placeholder=""
           type="text"
@@ -147,10 +152,10 @@ const handleClose = () => {
       </div>
     </div>
 
-    <div key="marketHistory" class="item-row">
+    <div key="marketHistory" class="item-row area-row">
       <p class="item-name">Market History</p>
       <div class="input-group">
-        <input
+        <textarea
           v-model="marketHistory"
           placeholder=""
           type="text"
@@ -159,10 +164,10 @@ const handleClose = () => {
       </div>
     </div>
 
-    <div key="value" class="item-row">
+    <div key="value" class="item-row area-row">
       <p class="item-name">Value</p>
       <div class="input-group">
-        <input v-model="value" placeholder="" type="text" class="input" />
+        <textarea v-model="value" placeholder="" type="text" class="input" />
       </div>
     </div>
 
@@ -171,7 +176,7 @@ const handleClose = () => {
       <div class="input-group">
         <input
           v-model="gaugeContract"
-          placeholder=""
+          placeholder="0x0.."
           type="text"
           class="input"
         />
@@ -195,7 +200,7 @@ const handleClose = () => {
       <div class="input-group">
         <input
           v-model="balancerMultisig"
-          placeholder=""
+          placeholder="0x0.."
           type="text"
           class="input"
         />
@@ -208,17 +213,9 @@ const handleClose = () => {
       </p>
       <div class="input-group">
         <label for="">yes</label>
-        <input
-          v-model="corePoolStatus"
-          type="radio"
-          value="true"
-        />
+        <input v-model="corePoolStatus" type="radio" value="true" />
         <label for="">no</label>
-        <input
-          v-model="corePoolStatus"
-          type="radio"
-          value="false"
-        />
+        <input v-model="corePoolStatus" type="radio" value="false" />
       </div>
     </div>
 
@@ -336,5 +333,15 @@ input[type='number'] {
 .submit-button:disabled {
   background-color: rgba(56, 74, 255, 0.2);
   cursor: not-allowed;
+}
+
+.area-row {
+  height: 200px;
+}
+
+.area-row .input-group textarea {
+  height: 200px !important;
+  padding: 5px !important;
+  width: 367px !important;
 }
 </style>
