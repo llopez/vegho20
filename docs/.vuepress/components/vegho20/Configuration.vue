@@ -15,6 +15,7 @@ import WithdrawModal from './WithdrawModal.vue';
 import { ethers } from 'ethers';
 import { Select, SelectTrigger, SelectOptions } from '../Select';
 import { usePools } from '../../providers/pools';
+
 const { pools, isLoading: isLoadingPools } = usePools();
 
 watch(pools, value => {

@@ -7,6 +7,7 @@ import { useController } from '../../../utils/RewardFaucetController';
 import { useVeSystem } from '../../../providers/veSystem';
 import { toBigInt, ethers } from 'ethers';
 import { getSelectorTokenItems } from '../../../utils';
+import Tooltip from '../Tooltip.vue';
 
 const { walletProvider } = useWeb3ModalProvider();
 const { selected: veSystem } = useVeSystem();
@@ -140,7 +141,15 @@ const tokens = computed<[string, string][]>(() => {
 
 <template>
   <div key="nWeek" class="item-row">
-    <p class="item-name">Add Rewards into N Weeks</p>
+    <p class="item-name">
+      <Tooltip
+        tooltip="How does it work?
+Deposit rewards evenly across a specified weeks starting from the current week. 
+Example 1:
+The user wants to add reward tokens that will be distributed into few weeks starting from the current week. For example, the user adds 100 reward tokens for distribution for 5 weeks. It means that each following week will have 20 tokens for distribution (100 tokens / 5 weeks = 20 tokens per week)."
+        >Add Rewards into N Weeks</Tooltip
+      >
+    </p>
     <div class="item-action">
       <Selector
         :items="tokens"

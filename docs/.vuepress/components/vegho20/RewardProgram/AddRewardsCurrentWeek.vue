@@ -7,6 +7,7 @@ import { useVeSystem } from '../../../providers/veSystem';
 import { ethers, toBigInt } from 'ethers';
 import Selector from './Selector.vue';
 import { getSelectorTokenItems } from '../../../utils';
+import Tooltip from '../Tooltip.vue';
 
 const { walletProvider } = useWeb3ModalProvider();
 const { selected: veSystem } = useVeSystem();
@@ -134,7 +135,15 @@ const tokens = computed<[string, string][]>(() => {
 
 <template>
   <div key="currentWeek" class="item-row">
-    <p class="item-name">Add Rewards into Current Week</p>
+    <p class="item-name">
+      <Tooltip
+        tooltip="How does it work?
+Providing rewards into current week. (Week start from lats Thursday at 00:00:00 UTC and ends next Wednesday at 23:59:59 UTC)
+Example 1:
+The user wants to add reward tokens that will be distributed in the current week. For example, the user adds 100 reward tokens for distribution. To do this, user specify the token, quantity (100), perform approval, and then initiate a transaction to deposit the tokens. At the end of the current week, 100 tokens will be distributed among participants who had Locks during the previous week."
+        >Add Rewards into Current Week</Tooltip
+      >
+    </p>
     <div class="item-action">
       <Selector
         prompt="Select Token"

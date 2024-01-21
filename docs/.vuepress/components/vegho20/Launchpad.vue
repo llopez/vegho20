@@ -6,6 +6,7 @@ import { useNetwork } from '../../providers/network';
 import { dateToSeconds, useController, weeksToSeconds } from '../../utils';
 import { Select, SelectTrigger, SelectOptions } from '../Select';
 import { usePools } from '../../providers/pools';
+import Tooltip from './Tooltip.vue';
 const { pools, isLoading: isLoadingPools } = usePools();
 
 watch(pools, value => {
@@ -225,7 +226,14 @@ const onTokenInChange = value => {
       </div>
     </div>
     <div class="item-row">
-      <p class="item-name">Reward Distribition Start-time</p>
+      <p class="item-name">
+        <Tooltip
+          tooltip="The beginning week of a reward program. The earliest possible date is the upcoming Thursday (unixtime).
+How does it work?
+The start of reward program can be postponed for any weeks. Creator can choose any week in the future."
+          >Reward Distribition Start-time</Tooltip
+        >
+      </p>
       <div class="input-group">
         <div class="input">
           <p

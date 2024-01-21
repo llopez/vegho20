@@ -11,6 +11,8 @@ import { useNetwork } from '../../../providers/network';
 import { useController } from '../../../utils/VotingEscrowController';
 import { ethers } from 'ethers';
 import { Select, SelectTrigger, SelectOptions } from '../../Select';
+import Tooltip from '../Tooltip.vue';
+
 import { usePools } from '../../../providers/pools';
 
 const { pools, isLoading: isLoadingPools } = usePools();
@@ -312,7 +314,24 @@ const onTokenInChange = value => {
             :onClose="handleUnlockModalClose"
             :onUnlock="handleUnlock"
           />
-          <p>Status: {{ allUnlockStatus }}</p>
+          <p>
+            <Tooltip
+              tooltip="'Unclock All' can be called only once. After it contract becomes 90% useless
+
+What does it mean?
+Allows all users to withdraw their funds ahead of schedule. In case this option is activated, the contract effectively terminates (there is no turning back). New locks cannot be created.
+
+Why would someone use it? Example 1:
+The functionality can be useful, for example, if the owner has decided to terminate the reward program ahead of schedule.
+
+How does it work?
+Admin calls function set_all_unlock(), and afterwards all locks can be withdrawn before lock-finish time without any penalties
+What may remain?
+Users can withdraw their locks at any time since option is activated.
+Why does it becomes useless? In which way?"
+              >Status: {{ allUnlockStatus }}</Tooltip
+            >
+          </p>
           <button
             class="btn"
             :disabled="allUnlockStatus || isLoadingAllUnlock"
@@ -328,7 +347,13 @@ const onTokenInChange = value => {
             :onUnlock="handleEarlyUnlock"
             :earlyUnlock="earlyUnlockStatus"
           />
-          <p>Status: {{ earlyUnlockStatus }}</p>
+          <p>
+            <Tooltip
+              tooltip="Early Unlock
+Admin can enable or disable early unlock at any time"
+              >Status: {{ earlyUnlockStatus }}</Tooltip
+            >
+          </p>
           <button
             class="btn"
             :disabled="isLoadingEarlyUnlock"
@@ -344,7 +369,40 @@ const onTokenInChange = value => {
             :onSubmit="handleSetEarlyPenalty"
             :earlyPenalty="earlyPenalty"
           />
-          <p>Early Penalty: {{ earlyPenalty }}</p>
+          <p>
+            <Tooltip
+              tooltip="Early Penalty
+
+10
+The penalty coefficient indicating the penalty speed for early unlock. Must be between 0 and 50. Default value is 10 means that penalty has linear speed.
+
+If Early Penalty is set, can be it changed later, and if yes, by whom?
+
+Why would someone use it?
+
+How does it work? Lets review examples
+
+Example 1: Early Penalty is set to 10. If user locked 1,000 tokens for 52 weeks (1 year). User wants to withdraw with penalty after 1 week, > she will withdraw ??? tokens. 
+If user withdraws after 36 weeks, she will withdraw ??? tokens. 
+
+Example 2: Early Penalty is set to 5. If user locked 1,000 tokens for 52 weeks (1 year). User wants to withdraw with penalty after 1 week, > she will withdraw ??? tokens. 
+If user withdraws after 36 weeks, she will withdraw ??? tokens. 
+
+Example 3: Early Penalty is set to 0. If user locked 1,000 tokens for 52 weeks (1 year). User wants to withdraw with penalty after 1 week, > she will withdraw ??? tokens. 
+If user withdraws after 36 weeks, she will withdraw ??? tokens. 
+
+Example 3: Early Penalty is set to 50. If user locked 1,000 tokens for 52 weeks (1 year). User wants to withdraw with penalty after 1 week, > she will withdraw ??? tokens. 
+If user withdraws after 36 weeks, she will withdraw ??? tokens. 
+
+
+Example 3: Early Penalty is set to 0. If user locked 1,000 tokens for 52 weeks (1 year). User wants to withdraw with penalty after 1 week, > she will withdraw ??? tokens. 
+If user withdraws after 36 weeks, she will withdraw ??? tokens. 
+
+Example 3: Early Penalty is set to 0. If user locked 1,000 tokens for 52 weeks (1 year). User wants to withdraw with penalty after 1 week, > she will withdraw ??? tokens. 
+If user withdraws after 36 weeks, she will withdraw ??? tokens."
+              >Early Penalty: {{ earlyPenalty }}</Tooltip
+            >
+          </p>
           <button
             class="btn"
             :disabled="isLoadingEarlyPenalty"

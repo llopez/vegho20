@@ -4,6 +4,7 @@ import { useWeb3ModalProvider } from '@web3modal/ethers/vue';
 import { useNetwork } from '../../../providers/network';
 import { useController } from '../../../utils/RewardsDistributionController';
 import { useVeSystem } from '../../../providers/veSystem';
+import Tooltip from '../Tooltip.vue';
 
 const { walletProvider } = useWeb3ModalProvider();
 const { selected: veSystem, select } = useVeSystem();
@@ -58,7 +59,15 @@ const removeToken = (index: number) => {
 
 <template>
   <div class="item-row">
-    <p class="item-name">Set Available Rewards</p>
+    <p class="item-name">
+      <Tooltip
+        tooltip="How does it work?
+Sets allowing reward token (or list of tokens).
+Example 1:
+The admin wants to add tokens that will be used for distributing rewards to users. To do this, the user provides the addresses of the tokens and performs a transaction to add them. After the transaction is completed, the tokens can be used for reward distribution"
+        >Set Available Rewards</Tooltip
+      >
+    </p>
     <div class="group-tokens">
       <div v-for="(_, index) in tokens" :key="`token-${index}`" class="tokens">
         <div class="item-action">

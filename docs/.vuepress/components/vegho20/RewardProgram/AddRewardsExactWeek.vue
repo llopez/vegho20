@@ -7,6 +7,7 @@ import { useController } from '../../../utils/RewardFaucetController';
 import { useVeSystem } from '../../../providers/veSystem';
 import { toBigInt, ethers } from 'ethers';
 import { dateToSeconds, getSelectorTokenItems } from '../../../utils';
+import Tooltip from '../Tooltip.vue';
 
 const { walletProvider } = useWeb3ModalProvider();
 const { selected: veSystem } = useVeSystem();
@@ -140,7 +141,15 @@ const tokens = computed<[string, string][]>(() => {
 
 <template>
   <div key="exactWeek" class="item-row">
-    <p class="item-name">Add Rewards into Exact Week</p>
+    <p class="item-name">
+      <Tooltip
+        tooltip="How does it work?
+Deposit rewards into one specific week (corrent one or week in the future)
+Example 1:
+The user wants to add reward tokens that will be distributed in the one future week. For example, the user adds 100 reward tokens for distribution 4 weeks later. To do this, user specify the token, quantity (100), perform approval, and then initiate a transaction to deposit the tokens. After the fourth week, the reward tokens will be distributed among users who had Locks during the fourth week"
+        >Add Rewards into Exact Week</Tooltip
+      >
+    </p>
     <div class="item-action">
       <Selector
         :items="tokens"
