@@ -118,7 +118,7 @@ export const useController = ({
             rewardDistributorStartTime,
             admin,
             admin,
-            admin
+            ethers.ZeroAddress
           ),
         callbacks
       );
