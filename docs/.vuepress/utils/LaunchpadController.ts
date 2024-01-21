@@ -34,7 +34,7 @@ type UseControllerReturnType = {
 };
 
 const ABI = [
-  'function deploy(address tokenBptAddr,string name,string symbol,uint256 maxLockTime,uint256 rewardDistributorStartTime,address admin_unlock_all,address admin_early_unlock) external returns (address,address,address)',
+  'function deploy(address tokenBptAddr,string name,string symbol,uint256 maxLockTime,uint256 rewardDistributorStartTime,address admin_unlock_all,address admin_early_unlock,address rewardReceiver) external returns (address,address,address)',
 ];
 
 export const submitAction = async (
@@ -116,6 +116,7 @@ export const useController = ({
             symbol,
             maxLockTime,
             rewardDistributorStartTime,
+            admin,
             admin,
             admin
           ),
