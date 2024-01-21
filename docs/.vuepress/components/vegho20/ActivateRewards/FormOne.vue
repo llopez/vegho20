@@ -1,11 +1,29 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useWeb3ModalProvider } from '@web3modal/ethers/vue';
+import { useNetwork } from '../../../providers/network';
+import { BrowserProvider } from 'ethers';
+
+const { network } = useNetwork();
+const { walletProvider } = useWeb3ModalProvider();
 
 const field1 = ref();
 const field2 = ref();
+
+const message =
+  "I confirm that I'm a representative of the project associated with the Balancer Pool Token containing at least 20% GHO and that 100% of the Reward granted under this program will be distributed only to those 0x addresses who lock BPT in the Voting Escrow contracts for a period of 4 months, or longer lock periods.";
+
+const sign = async () => {
+  if (!walletProvider.value) return;
+
+  const provider = new BrowserProvider(walletProvider.value, network.value.id);
+  const signer = await provider.getSigner();
+  const signature = await signer.signMessage(message);
+  console.log(signature);
+};
 </script>
 <template>
-  <form class="section-container">
+  <form class="section-container" @submit.prevent="sign">
     <div key="field1" class="item-row">
       <p class="item-name">Field 1</p>
       <div class="input-group">
