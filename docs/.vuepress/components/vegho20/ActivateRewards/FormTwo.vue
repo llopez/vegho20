@@ -19,6 +19,10 @@ const audits = ref();
 const centralizationVectors = ref();
 const marketHistory = ref();
 const value = ref();
+const gaugeContract = ref();
+const rateProviderReview = ref();
+const balancerMultisig = ref();
+const corePoolStatus = ref<boolean>();
 
 const loading = ref(false);
 const isModalOpen = ref(false);
@@ -159,6 +163,62 @@ const handleClose = () => {
       <p class="item-name">Value</p>
       <div class="input-group">
         <input v-model="value" placeholder="" type="text" class="input" />
+      </div>
+    </div>
+
+    <div key="gaugeContract" class="item-row">
+      <p class="item-name">0x address of the Deployed Pool Gauge Contract</p>
+      <div class="input-group">
+        <input
+          v-model="gaugeContract"
+          placeholder=""
+          type="text"
+          class="input"
+        />
+      </div>
+    </div>
+
+    <div key="rateProviderReview" class="item-row">
+      <p class="item-name">Rate Provider Review</p>
+      <div class="input-group">
+        <input
+          v-model="rateProviderReview"
+          placeholder=""
+          type="text"
+          class="input"
+        />
+      </div>
+    </div>
+
+    <div key="balancerMultisig" class="item-row">
+      <p class="item-name">The Balancer Maxi LM Multisig</p>
+      <div class="input-group">
+        <input
+          v-model="balancerMultisig"
+          placeholder=""
+          type="text"
+          class="input"
+        />
+      </div>
+    </div>
+
+    <div key="corePoolStatus" class="item-row">
+      <p class="item-name">
+        do you want to request a Core Pool status as per BIP-457
+      </p>
+      <div class="input-group">
+        <label for="">yes</label>
+        <input
+          v-model="corePoolStatus"
+          type="radio"
+          value="true"
+        />
+        <label for="">no</label>
+        <input
+          v-model="corePoolStatus"
+          type="radio"
+          value="false"
+        />
       </div>
     </div>
 
