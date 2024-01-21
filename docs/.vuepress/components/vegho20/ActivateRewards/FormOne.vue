@@ -3,23 +3,44 @@ import { ref } from 'vue';
 import { useWeb3ModalProvider } from '@web3modal/ethers/vue';
 import { useNetwork } from '../../../providers/network';
 import { BrowserProvider } from 'ethers';
+import SuccessModal from './SuccessModal.vue';
 
 const { network } = useNetwork();
 const { walletProvider } = useWeb3ModalProvider();
 
 const field1 = ref();
 const field2 = ref();
+const loading = ref(false);
+const isModalOpen = ref(false);
+
+const response =
+  'Nice move! Your Reward Program Activation is in progress. Check Reward Programs page for status of your request, or reach out via Discord for status check at any time.';
 
 const message =
   "I confirm that I'm a representative of the project associated with the Balancer Pool Token containing at least 20% GHO and that 100% of the Reward granted under this program will be distributed only to those 0x addresses who lock BPT in the Voting Escrow contracts for a period of 4 months, or longer lock periods.";
 
 const sign = async () => {
   if (!walletProvider.value) return;
+  loading.value = true;
 
-  const provider = new BrowserProvider(walletProvider.value, network.value.id);
-  const signer = await provider.getSigner();
-  const signature = await signer.signMessage(message);
-  console.log(signature);
+  try {
+    const provider = new BrowserProvider(
+      walletProvider.value,
+      network.value.id
+    );
+    const signer = await provider.getSigner();
+    const signature = await signer.signMessage(message);
+    console.log(signature);
+    isModalOpen.value = true;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    loading.value = false;
+  }
+};
+
+const handleClose = () => {
+  isModalOpen.value = false;
 };
 </script>
 <template>
@@ -49,7 +70,13 @@ const sign = async () => {
         />
       </div>
     </div>
-    <button type="submit" class="submit-button">Submit</button>
+
+    <SuccessModal :open="isModalOpen" :onClose="handleClose">{{
+      response
+    }}</SuccessModal>
+    <button type="submit" class="submit-button" :disabled="loading">
+      Submit
+    </button>
   </form>
 </template>
 
