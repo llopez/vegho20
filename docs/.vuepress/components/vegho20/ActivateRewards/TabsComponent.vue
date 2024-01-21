@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import FormOne from './FormOne.vue';
+import FormTwo from './FormTwo.vue';
+import FormThree from './FormThree.vue';
 import Wallet from '../../Navbar/Wallet.vue';
 import { useTabs, Tab } from '../../../providers/tabs';
-import { useVeSystem } from '../../../providers/veSystem';
 
 const { tab, select } = useTabs();
-const { selected: veSystem } = useVeSystem();
 </script>
 
 <template>
@@ -24,7 +24,7 @@ const { selected: veSystem } = useVeSystem();
         :class="{ tab: true, 'active-tab': tab === Tab.FORM_2 }"
         @click="select(Tab.FORM_2)"
       >
-        Form 2
+        BAL Gauge Rewards
       </div>
       <div
         :class="{ tab: true, 'active-tab': tab === Tab.FORM_3 }"
@@ -39,11 +39,11 @@ const { selected: veSystem } = useVeSystem();
     </div>
 
     <div v-show="tab === Tab.FORM_2" class="body-container">
-      <FormOne />
+      <FormTwo />
     </div>
 
     <div v-show="tab === Tab.FORM_3" class="body-container">
-      <FormOne />
+      <FormThree />
     </div>
   </div>
 </template>
