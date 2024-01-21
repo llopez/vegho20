@@ -134,7 +134,7 @@ const handleClose = () => {
     <div key="centralizationVectors" class="item-row">
       <p class="item-name">Centralization Vectors</p>
       <div class="input-group">
-        <textarea
+        <input
           v-model="centralizationVectors"
           placeholder=""
           type="text"
@@ -206,8 +206,7 @@ input[type='number'] {
   margin: 0;
 }
 
-.item-row .input-group,
-.item-row .lock-group {
+.item-row .input-group {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -215,8 +214,7 @@ input[type='number'] {
   width: 50%;
 }
 
-.item-row .input-group .input,
-.item-row .lock-group .input {
+.item-row .input-group .input {
   background-color: transparent;
   border: 1px solid #e2e8f0;
   position: relative;
@@ -231,13 +229,11 @@ input[type='number'] {
   align-items: center;
 }
 
-.dark .item-row .input-group .input,
-.dark .item-row .lock-group .input {
+.dark .item-row .input-group .input {
   border: 1px solid #3e4c5a;
 }
 
-.item-row .input-group .input:focus,
-.item-row .lock-group .input:focus {
+.item-row .input-group .input:focus {
   border: 1px solid #384aff;
 }
 
@@ -263,35 +259,6 @@ input[type='number'] {
 
 .dark .item-row .input-group .input .text.disabled {
   color: #666;
-}
-
-.item-row .lock-group {
-  gap: 8px;
-  max-width: 340px;
-  width: 50%;
-}
-
-.item-row .lock-group .time-group {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  max-width: 75px;
-  width: 33%;
-  position: relative;
-}
-
-.item-row .lock-group .time-group .input {
-  width: 100%;
-  padding: 0;
-  padding-left: 12px;
-  padding-top: 14px;
-}
-.time-group .text {
-  margin: 0;
-  font-size: 12px;
-  position: absolute;
-  top: 2px;
-  left: 10px;
 }
 
 .submit-button {
