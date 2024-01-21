@@ -2,11 +2,12 @@ import { InjectionKey, provide, onBeforeMount, ref, watch } from 'vue';
 import { RawPool, SubgraphPoolProvider } from '@balancer/sdk';
 import { safeInject } from './inject';
 import { useNetwork } from './network';
+import { BalancerSubgraph, PoolType } from '../utils/BalancerSubgraph';
 
 export const poolsProvider = () => {
   const { network } = useNetwork();
 
-  const pools = ref<RawPool[]>([]);
+  const pools = ref<PoolType[] | RawPool[]>([]);
   const isLoading = ref(true);
 
   watch(network, async () => {
@@ -17,18 +18,32 @@ export const poolsProvider = () => {
     if (!network.value) return;
     isLoading.value = true;
     console.log('init pools for network', network.value.id);
-    const poolProvider = new SubgraphPoolProvider(network.value.id, undefined, {
-      gqlAdditionalPoolQueryFields: 'name symbol totalLiquidity',
-    });
 
-    const timestamp = BigInt(Math.floor(new Date().getTime() / 1000));
+    if (network.value.id === 11155111) {
+      const sepoliaPoolProvider = new BalancerSubgraph(
+        'https://api.studio.thegraph.com/query/24660/balancer-sepolia-v2/version/latest'
+      );
+      const _pools = await sepoliaPoolProvider.getPools();
+      pools.value = _pools;
+    } else {
+      const poolProvider = new SubgraphPoolProvider(
+        network.value.id,
+        undefined,
+        {
+          gqlAdditionalPoolQueryFields: 'name symbol totalLiquidity',
+        }
+      );
 
-    const { pools: _pools } = await poolProvider.getPools({ timestamp });
+      const timestamp = BigInt(Math.floor(new Date().getTime() / 1000));
 
-    pools.value = _pools.sort((a, b) => {
-      // @ts-ignore
-      return parseFloat(b.totalLiquidity) - parseFloat(a.totalLiquidity);
-    });
+      const { pools: _pools } = await poolProvider.getPools({ timestamp });
+
+      pools.value = _pools;
+    }
+    // pools.value = _pools.sort((a, b) => {
+    //   // @ts-ignore
+    //   return parseFloat(b.totalLiquidity) - parseFloat(a.totalLiquidity);
+    // });
 
     isLoading.value = false;
   }

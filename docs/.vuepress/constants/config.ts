@@ -41,4 +41,13 @@ export const CONFIG = new Map<number, Config>([
       LENS_REWARD_CONTRACT: '0xb422e74045f19d94ec62236efdcae4b13bac386b',
     },
   ],
+  [
+    11155111, // sepolia
+    {
+      SUBGRAPH_URL:
+        'https://thegraph.com/hosted-service/subgraph/maxkmyt/launchpad_sepolia',
+      LAUNCHPAD_CONTRACT: '0x7dc2e35912c6db21febac4dfb7c5c9d0f916c22f',
+      LENS_REWARD_CONTRACT: '0x8bc129435f2f89770b48b7ca282f6ed82f1a7e39',
+    },
+  ],
 ]);

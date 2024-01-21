@@ -1,7 +1,7 @@
 import { Network } from '@balancer-labs/sdk';
 
 export interface NetworkConfig {
-  id: Network | 80001 | 1101;
+  id: Network | 80001 | 1101 | 11155111;
   name: string;
   logo: string;
   explorer: string;
@@ -43,5 +43,12 @@ export const NETWORKS: NetworkConfig[] = [
     logo: '/images/chains/polygon-pos-logo.svg',
     explorer: 'https://mumbai.polygonscan.com',
     rpcUrl: 'https://rpc-mumbai.maticvigil.com',
+  },
+  {
+    id: 11155111,
+    name: 'Sepolia',
+    logo: '/images/chains/ethereum-logo.svg',
+    explorer: 'https://sepolia.etherscan.io',
+    rpcUrl: 'https://eth-sepolia-public.unifra.io',
   },
 ];
