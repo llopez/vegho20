@@ -30,3 +30,5 @@ features:
     details: For fair token launches and NFT drops
     link: /concepts/pools/liquidity-bootstrapping.html
 --- 
+
+<iframe width="1300px" height="650px"  src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRszNCFiFe_MixgIpve6wzy3GXm0P4akcb6tKt3qgRxvkkpo3OppcNqpY5U-luuBZEK0G_1tc1wtILE/pubhtml?gid=1985519840&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
