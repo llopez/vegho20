@@ -8,8 +8,12 @@ import SuccessModal from './SuccessModal.vue';
 const { network } = useNetwork();
 const { walletProvider } = useWeb3ModalProvider();
 
-const field1 = ref();
-const field2 = ref();
+const projectName = ref();
+const projectWebsite = ref();
+const email = ref();
+const telegram = ref();
+const networks = ref();
+
 const loading = ref(false);
 const isModalOpen = ref(false);
 
@@ -45,27 +49,66 @@ const handleClose = () => {
 </script>
 <template>
   <form class="section-container" @submit.prevent="sign">
-    <div key="field1" class="item-row">
-      <p class="item-name">Field 1</p>
+    <div key="projectName" class="item-row">
+      <p class="item-name">Project Name</p>
       <div class="input-group">
         <input
-          v-model="field1"
-          placeholder="field1"
+          v-model="projectName"
+          placeholder="Balancer"
           type="text"
-          name="field1"
+          name="projectName"
           class="input"
         />
       </div>
     </div>
 
-    <div key="field2" class="item-row">
-      <p class="item-name">Field 2</p>
+    <div key="projectWebsite" class="item-row">
+      <p class="item-name">Project Website</p>
       <div class="input-group">
         <input
-          v-model="field2"
-          placeholder="field2"
+          v-model="projectWebsite"
+          placeholder="yoursite.io"
           type="text"
-          name="field2"
+          name="projectWebsite"
+          class="input"
+        />
+      </div>
+    </div>
+
+    <div key="email" class="item-row">
+      <p class="item-name">Email</p>
+      <div class="input-group">
+        <input
+          v-model="email"
+          placeholder="joedoe@secret.io"
+          type="text"
+          name="email"
+          class="input"
+        />
+      </div>
+    </div>
+
+    <div key="telegram" class="item-row">
+      <p class="item-name">Telegram</p>
+      <div class="input-group">
+        <input
+          v-model="telegram"
+          placeholder="@joedoe"
+          type="text"
+          name="telegram"
+          class="input"
+        />
+      </div>
+    </div>
+
+    <div key="networks" class="item-row">
+      <p class="item-name">Networks</p>
+      <div class="input-group">
+        <input
+          v-model="networks"
+          placeholder="ethereum, polygon, arbitrum"
+          type="text"
+          name="networks"
           class="input"
         />
       </div>
