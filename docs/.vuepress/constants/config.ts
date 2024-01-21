@@ -46,7 +46,7 @@ export const CONFIG = new Map<number, Config>([
     {
       SUBGRAPH_URL:
         'https://thegraph.com/hosted-service/subgraph/maxkmyt/launchpad_sepolia',
-      LAUNCHPAD_CONTRACT: '0x048c7c493e134c29416332a8ecaad5da96e4b33f',
+      LAUNCHPAD_CONTRACT: '0x4d3c7c2786a16e24c948dca25a77f52087521633',
       LENS_REWARD_CONTRACT: '0x8bc129435f2f89770b48b7ca282f6ed82f1a7e39',
     },
   ],

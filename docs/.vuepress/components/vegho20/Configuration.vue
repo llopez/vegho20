@@ -38,6 +38,7 @@ const {
   withdrawEarly,
   increaseLockAmount,
   increaseLockTime,
+  claimExternalRewards,
 } = useController({
   walletProvider,
   network,
@@ -151,6 +152,7 @@ const isLoadingLock = ref<boolean>(false);
 const isLoadingApprove = ref<boolean>(false);
 const isLoadingWithdraw = ref<boolean>(false);
 const isLoadingClaim = ref<boolean>(false);
+const isLoadingClaimExternalRewards = ref<boolean>(false);
 
 const isLockModalOpen = ref<boolean>(false);
 const isIncreaseLockModalOpen = ref<boolean>(false);
@@ -236,6 +238,26 @@ const handleWithdraw = async () => {
     onError: err => {
       console.log('err', err);
       isLoadingWithdraw.value = false;
+    },
+  });
+};
+
+const handleClaimExternalRewards = async () => {
+  await claimExternalRewards.value?.({
+    onPrompt: () => {
+      console.log('onPrompt');
+    },
+    onSubmitted: ({ tx }) => {
+      console.log('onSubmitted', tx);
+      isLoadingClaimExternalRewards.value = true;
+    },
+    onSuccess: async ({ receipt }) => {
+      console.log('onSuccess', receipt);
+      isLoadingClaimExternalRewards.value = false;
+    },
+    onError: err => {
+      console.log('err', err);
+      isLoadingClaimExternalRewards.value = false;
     },
   });
 };
@@ -594,6 +616,15 @@ const onTokenInChange = value => {
             @click="handleEarlyWithdrawModalOpen"
           >
             {{ isLoadingWithdraw ? 'Withdrawing...' : 'Early Withdraw' }}
+          </button>
+        </div>
+        <div>
+          <button
+            class="btn"
+            :disabled="isLoadingClaim"
+            @click="handleClaimExternalRewards"
+          >
+            {{ isLoadingClaim ? 'Claiming...' : 'Claim External Rewards' }}
           </button>
         </div>
         <div>
