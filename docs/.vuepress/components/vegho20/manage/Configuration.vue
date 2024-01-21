@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, onBeforeMount } from 'vue';
 import { useVeSystem } from '../../../providers/veSystem';
 import { CONFIG } from '../../../constants/config';
 import { secondsToDate } from '../../../utils';
@@ -22,7 +22,13 @@ const {
   selected: veSystem,
   data: veSystems,
   select: selectVeSystem,
+  fetch,
 } = useVeSystem();
+
+onBeforeMount(() => {
+  fetch();
+});
+
 const {
   allUnlock,
   setAllUnlock,
@@ -239,7 +245,7 @@ const onTokenInChange = value => {
   console.log(value);
   selectedPool.value = value;
   // bptAddress.value = value.address;
-  const _veSystem = veSystems.value.find(x => x.bptToken === value);
+  const _veSystem = veSystems.value.find(x => x.bptToken === value.address);
 
   if (!_veSystem) return;
 

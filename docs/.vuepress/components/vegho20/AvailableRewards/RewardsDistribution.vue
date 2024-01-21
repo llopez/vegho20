@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onBeforeMount } from 'vue';
 import AvailableRewardsModal from './AvailableRewardsModal.vue';
 import { useVeSystem } from '../../../providers/veSystem';
 import { ethers } from 'ethers';
@@ -12,7 +12,12 @@ const {
   selected: veSystem,
   data: veSystems,
   select: selectVeSystem,
+  fetch,
 } = useVeSystem();
+
+onBeforeMount(() => {
+  fetch();
+});
 
 const isModalOpen = ref<boolean>(false);
 
@@ -49,7 +54,7 @@ const onTokenInChange = value => {
   selectedPool.value = value;
   // bptAddress.value = value.address;
 
-  const _veSystem = veSystems.value.find(x => x.bptToken === value);
+  const _veSystem = veSystems.value.find(x => x.bptToken === value.address);
 
   if (!_veSystem) return;
 
